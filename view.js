@@ -15,11 +15,11 @@ function clear(){
 function draw(){
     clear();
     pen.save();
-    pen.fillStyle = "red";
-    for(let x = 0; x < Nodes.length; x++){
+    pen.fillStyle = "white";
+    for(let x = 0; x < Graph.length; x++){
         pen.beginPath();
-        pen.moveTo(Nodes[x].x , Nodes[x].y);
-        pen.arc(Nodes[x].x , Nodes[x].y, radius,0,2*Math.PI,false);
+        pen.moveTo(Graph[x].x , Graph[x].y);
+        pen.arc(Graph[x].x , Graph[x].y, radius,0,2*Math.PI,false);
         pen.fill();
     }
 

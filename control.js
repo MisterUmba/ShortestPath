@@ -24,7 +24,17 @@ function nodeAt(x, y){
 }
 
 function deleteEdgesToMe(node){
-    console.log("magic");
+    let index = undefined;
+    for(let i = 0; i < node.Edges.length; i ++){
+        let other = node.Edges[i].e;
+        for(let j = 0; j < other.Edges.length; j ++){
+            if(other.Edges[j].e === node){
+                other.Edges.splice(j,1);
+            }
+        }
+    }
+
+    console.log("Attempt Magic");
 }
 
 function removeAllSelected(){

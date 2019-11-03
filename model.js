@@ -30,6 +30,7 @@ class Node{
         this.x = x;
         this.y = y;
         this.Edges = [];
+        this.selected = false;
     }
 
     addEdge(edge){

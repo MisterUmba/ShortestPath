@@ -59,8 +59,19 @@ document.addEventListener("keydown", function(ev){
 });
 
 function connectNodes(node1, node2){
-    node1.addEdge(new Edge(node1,node2));
-    node2.addEdge(new Edge(node2,node1));
+    let ed = new Edge(node1,node2);
+    let a = Math.abs(node1.x - node2.x);
+    let b = Math.abs(node1.y - node2.y);
+
+    let cost = Math.floor(Math.sqrt( Math.pow(a,2) + Math.pow(b,2) ));
+    ed.cost = cost;
+    node1.addEdge(ed);
+
+    let ed1 = new Edge(node2,node1);
+    ed1.cost = cost;
+    node2.addEdge(ed1);
+
+    console.log(cost);
 }
 
 document.addEventListener("mousedown", function(ev){

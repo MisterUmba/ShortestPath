@@ -16,16 +16,9 @@ function draw(){
     clear();
     pen.save();
     pen.fillStyle = "white";
-    pen.strokeStyle = "red";
     pen.lineWidth = 10;
-    for(let x = 0; x < Graph.length; x++){
-        pen.beginPath();
-        pen.moveTo(Graph[x].x , Graph[x].y);
-        pen.arc(Graph[x].x , Graph[x].y, radius,0,2*Math.PI,false);
-        if(Graph[x].selected){pen.stroke();}
-        pen.fill();
-    }
-
+    
+    // Drawing all Edges
     for(let x = 0; x < Graph.length; x++){
         for(let i = 0; i < Graph[x].Edges.length; i ++){
             let ed = Graph[x].Edges[i];
@@ -36,6 +29,33 @@ function draw(){
             pen.stroke();
         }
     }
+
+    // Drawing edge codes
+    for(let x = 0; x < Graph.length; x++){
+        for(let i = 0; i < Graph[x].Edges.length; i ++){
+            let ed = Graph[x].Edges[i];
+            pen.fillStyle = "red";
+            pen.textAlign = "center";
+            let pos = {
+                x: Math.floor(Math.abs(ed.b.x + ed.e.x)/2),
+                y: Math.floor(Math.abs(ed.b.y + ed.e.y)/2)
+            }
+            pen.fillText(ed.cost, pos.x, pos.y);
+        }
+    }
+
+    // Drawing all Nodes
+    pen.strokeStyle = "red";
+    pen.fillStyle = "white";
+    for(let x = 0; x < Graph.length; x++){
+        pen.beginPath();
+        pen.moveTo(Graph[x].x , Graph[x].y);
+        pen.arc(Graph[x].x , Graph[x].y, radius,0,2*Math.PI,false);
+        if(Graph[x].selected){pen.stroke();}
+        pen.fill();
+    }
+
+    
 
     pen.restore();
 }

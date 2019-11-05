@@ -23,6 +23,8 @@ function draw(){
         for(let i = 0; i < Graph[x].Edges.length; i ++){
             let ed = Graph[x].Edges[i];
             pen.strokeStyle = "white";
+            if(ed.selected)
+                pen.strokeStyle = "gold";
             pen.beginPath();
             pen.moveTo(ed.b.x, ed.b.y);
             pen.lineTo(ed.e.x, ed.e.y);
@@ -51,7 +53,13 @@ function draw(){
         pen.beginPath();
         pen.moveTo(Graph[x].x , Graph[x].y);
         pen.arc(Graph[x].x , Graph[x].y, radius,0,2*Math.PI,false);
-        if(Graph[x].selected){pen.stroke();}
+        if(Graph[x].selected)
+            pen.stroke();
+        if(Graph[x].start){
+            pen.strokeStyle = "Gold"; 
+            pen.stroke()
+            pen.strokeStyle = "red";
+        }
         pen.fill();
     }
 

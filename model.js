@@ -11,6 +11,7 @@ class Edge{
     constructor(begin, end){
         this.b = begin;
         this.e = end;
+        this.selected = false;
         this.cost = 0;
     }
 
@@ -31,6 +32,7 @@ class Node{
         this.y = y;
         this.Edges = [];
         this.selected = false;
+        this.start = false;
     }
 
     addEdge(edge){

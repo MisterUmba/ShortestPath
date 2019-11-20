@@ -1,6 +1,6 @@
 let canvas = document.getElementById("Shortest_Path_Canvas_Screen");
 let pen = canvas.getContext("2d");
-let radius = 10;
+let radius = 20;
 
 
 // Set the size of the canvas
@@ -32,7 +32,7 @@ function draw(){
         }
     }
 
-    // Drawing edge codes
+    // Drawing edge cost
     for(let x = 0; x < Graph.length; x++){
         for(let i = 0; i < Graph[x].Edges.length; i ++){
             let ed = Graph[x].Edges[i];
@@ -63,6 +63,11 @@ function draw(){
         pen.fill();
     }
 
+    // Drawing Node label
+    for(let x = 0; x < Graph.length; x++){
+        pen.fillStyle = "red";
+        pen.fillText(x, Graph[x].x, Graph[x].y);
+    }
     
 
     pen.restore();

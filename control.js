@@ -76,25 +76,35 @@ document.addEventListener("mousedown", function (ev) {
     EDGINGNODE = nodeAt(pos.x, pos.y);
 });
 
-function highlightPath(node){
-    while(node.path.last !== node){
-        
-        let temp = undefined;
-        for(let k = 0; k < node.Edges.length; k ++){
-            if(node.Edges[k].e === node.path.last){
-                node.Edges[k].selected = true;
-                console.log(node.Edges[k].cost +""+node.Edges[k].selected);
-                temp = node.Edges[k].e;
-                
+function highlightPath(node) {
+    let ed = undefined;
+    while (node !== GOLD) {
+        for (let k = 0; k < node.Edges.length; k++) {
+            if (node.Edges[k].e === node.path.last) {
+                ed = node.Edges[k];
+                ed.selected = true;
+
+
+                for (let j = 0; j < ed.e.Edges.length; j++) {
+                    if (ed.e.Edges[j].e === node) {
+                        node.Edges[k].e.Edges[j].selected = true;
+                    }
+                }
+
+                node = node.Edges[k].e;
             }
+
+
         }
-        if(temp !== undefined)
-            node = temp;
     }
 }
 
-function erasePath(node){
-    console.log("erase");
+function erasePath(node) {
+    for (let x = 0; x < Graph.length; x++) {
+        for (let i = 0; i < Graph[x].Edges.length; i++) {
+            let ed = Graph[x].Edges[i].selected = false;
+        }
+    }
 }
 
 document.addEventListener("mouseup", function (ev) {
@@ -107,10 +117,10 @@ document.addEventListener("mouseup", function (ev) {
         } else if (temp !== undefined) {
             if (temp.selected) {
                 temp.selected = false;
-                if(GOLD !== undefined) erasePath(temp);
+                if (GOLD !== undefined) erasePath(temp);
             } else {
-                if(GOLD !== undefined) highlightPath(temp);
                 temp.selected = true;
+                if (GOLD !== undefined) highlightPath(temp);
             }
 
         } else {
@@ -119,75 +129,51 @@ document.addEventListener("mouseup", function (ev) {
     }
 });
 
-function minUnvisited(node){
-    let endNodes = [];
-    for(let k = 0; k < node.Edges.length; k++)
-        endNodes.push(node.Edges[k].e);
-    for(let k = 0; k < node.Edges.length; k++)
-        if(node.Edges[k].e.path.visited){
-            endNodes.splice(endNodes.indexOf(node.Edges[k].e), 1);
-        }
-
-    if(endNodes.length == 0) return undefined;
-    let min = Infinity;
-    let ans = undefined;
-    for(let k = 0; k < endNodes.length; k++){
-        if(endNodes[k].path.distance < min){
-            min = endNodes[k].path.distance;
-            ans = endNodes[k];
-        }
-    }
-
-    return ans;
+function minUnvisited(queue) {
+    let temp = queue.reduce((prev, curr) => prev.path.dist < curr.path.dist ? prev : curr);
+    queue.splice(queue.indexOf(temp), 1);
+    return temp;
 }
 
 function shortestPath(src) {
-    if (src.Edges.length === 0)
-        return;
-
+    let Q = [];
+    let S = [];
     for (let k = 0; k < Graph.length; k++) {
-        Graph[k].visited = false;
-        if (Graph[k] === src) {
-            Graph[k].path = { distance: 0, last: src };
-        } else {
-            Graph[k].path = { distance: Infinity, last: undefined };
+        Graph[k].path = { dist: Infinity, last: undefined };
+        Q.push(Graph[k]);
+    }
+    src.path = { dist: 0, last: src };
+
+    while (Q.length !== 0) {
+        let curr = minUnvisited(Q);
+        S.push(curr);
+
+        for (let k = 0; k < curr.Edges.length; k++) {
+            if (curr.path.dist + curr.Edges[k].cost
+                < curr.Edges[k].e.path.dist) {
+                curr.Edges[k].e.path.dist
+                    = curr.path.dist + curr.Edges[k].cost;
+                curr.Edges[k].e.path.last = curr;
+            }
         }
     }
-
-    while (src !== undefined) {
-        for (let k = 0; k < src.Edges.length; k++) {
-            if(src.Edges[k].cost + src.path.distance <=
-                src.Edges[k].e.path.distance){
-                    src.Edges[k].e.path.distance = src.Edges[k].cost 
-                    + src.path.distance;
-                    src.Edges[k].e.path.last = src;
-                }
-        }
-
-        src.path.visited = true;
-
-        src = minUnvisited(src);
-    }
-
+    for (let k = 0; k < Graph.length; k++) { console.log(Graph.indexOf(Graph[k]) + "---->" + Graph.indexOf(Graph[k].path.last)) }
 }
 
-document.addEventListener("dblclick", function(ev){
+document.addEventListener("dblclick", function (ev) {
     let pos = getMousePos(canvas, ev);
-    
-    let node = nodeAt(pos.x, pos.y);
-    for(let k = 0; k < Graph.length; k ++)
-        Graph[k].start = false;
-    
-    if(GOLD === node){
-        GOLD = undefined;
-        return;
-    }
-    
-    node.start = true;
 
-    shortestPath(node);
+    let node = nodeAt(pos.x, pos.y);
+    for (let k = 0; k < Graph.length; k++) {
+        Graph[k].start = false;
+        GOLD = undefined;
+    }
+
     GOLD = node;
+    node.start = true;
+    shortestPath(GOLD);
 })
 
 
-setInterval(draw, 1000 / 15); 
+
+setInterval(draw, 1000 / 60); 

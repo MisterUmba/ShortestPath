@@ -76,6 +76,20 @@ document.addEventListener("mousedown", function (ev) {
     EDGINGNODE = nodeAt(pos.x, pos.y);
 });
 
+document.addEventListener("mousemove", function(ev){
+    if(EDGINGNODE !== undefined){
+        //console.log("Moving!")
+        //drawNewEdge(EDGINGNODE, getMousePos(canvas, ev));
+        if(newEdge === undefined){
+            drawNewEdge(EDGINGNODE, getMousePos(canvas, ev))
+        }else{
+            let pos = getMousePos(canvas,ev);
+            newEdge.e.x = pos.x; 
+            newEdge.e.y = pos.y;
+        }
+    }
+});
+
 function highlightPath(node) {
     let ed = undefined;
     while (node !== GOLD) {
@@ -108,6 +122,9 @@ function erasePath(node) {
 }
 
 document.addEventListener("mouseup", function (ev) {
+
+    newEdge = undefined;
+
     if (ev.target === canvas && ev.which === 1) {
         let p = getMousePos(canvas, ev);
 
@@ -125,8 +142,17 @@ document.addEventListener("mouseup", function (ev) {
 
         } else {
             Graph.push(new Node(p.x, p.y));
+            erasePath();
+
+            for(let x = 0; x < Graph.length; x++){
+                if(Graph[x].start){
+                    Graph[x].start = false;
+                }
+            }
         }
     }
+
+    EDGINGNODE = undefined;
 });
 
 function minUnvisited(queue) {

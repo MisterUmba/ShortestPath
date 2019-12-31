@@ -2,6 +2,9 @@ let canvas = document.getElementById("Shortest_Path_Canvas_Screen");
 let pen = canvas.getContext("2d");
 let radius = 20;
 
+//Show new edge
+let newEdge = undefined;
+
 
 // Set the size of the canvas
 canvas.width = window.innerWidth;
@@ -12,12 +15,29 @@ function clear(){
     pen.fillRect(0,0, canvas.width, canvas.height);
 }
 
+function drawNewEdge(b, e){
+    newEdge = new Edge(b, e);
+}
+
 function draw(){
     clear();
     pen.save();
     pen.fillStyle = "white";
     pen.lineWidth = 10;
     
+    if(newEdge !== undefined){
+        pen.save();
+    
+        pen.strokeStyle = "white";
+        pen.lineWidth = 10;
+        pen.beginPath();
+        pen.moveTo(newEdge.b.x, newEdge.b.y);
+        pen.lineTo(newEdge.e.x, newEdge.e.y);
+        pen.stroke();
+    
+        pen.restore();
+    }
+
     // Drawing all Edges
     for(let x = 0; x < Graph.length; x++){
         for(let i = 0; i < Graph[x].Edges.length; i ++){

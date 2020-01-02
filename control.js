@@ -57,12 +57,16 @@ document.addEventListener("keydown", function (ev) {
     }
 });
 
-function connectNodes(node1, node2) {
-    let ed = new Edge(node1, node2);
+function distance(node1, node2){
     let a = Math.abs(node1.x - node2.x);
     let b = Math.abs(node1.y - node2.y);
 
-    let cost = Math.floor(Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)));
+    return Math.floor(Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)));
+}
+
+function connectNodes(node1, node2) {
+    let ed = new Edge(node1, node2);
+    let cost = distance(node1, node2);
     ed.cost = cost;
     node1.addEdge(ed);
 

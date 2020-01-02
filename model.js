@@ -46,7 +46,7 @@ class Node{
 
 let Graph = [];
 
-function random(min, max){
+function rand(min, max){
     let d = max - min;
     return Math.floor(Math.random()*d) + min;
 }

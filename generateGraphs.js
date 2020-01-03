@@ -39,3 +39,12 @@ function generateRandomGraph(){
 
     console.log("Balls which fit: "+ballsFit)
 }
+
+function generateRandomEdges(){
+    for(let x = 0; x < Graph.length; x++){
+        for(let k = 0; k < Graph.length; k++){
+            if(distance(Graph[x], Graph[k]) <= radius * 6)
+                connectNodes(Graph[x], Graph[k]);
+        }
+    }
+}

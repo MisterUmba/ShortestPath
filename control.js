@@ -65,6 +65,12 @@ function distance(node1, node2){
 }
 
 function connectNodes(node1, node2) {
+    for(let x = 0; x < node1.Edges.length; x ++){
+        if(node1.Edges[x].e === node2){
+            return;
+        }
+    }
+
     let ed = new Edge(node1, node2);
     let cost = distance(node1, node2);
     ed.cost = cost;
@@ -187,7 +193,9 @@ function shortestPath(src) {
             }
         }
     }
-    for (let k = 0; k < Graph.length; k++) { console.log(Graph.indexOf(Graph[k]) + "---->" + Graph.indexOf(Graph[k].path.last)) }
+    let temp = "";
+    for (let k = 0; k < Graph.length; k++) { temp += (Graph.indexOf(Graph[k]) + "---->" + Graph.indexOf(Graph[k].path.last)) + "\n" }
+    console.log(temp);
 }
 
 document.addEventListener("dblclick", function (ev) {

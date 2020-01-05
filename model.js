@@ -50,3 +50,8 @@ function rand(min, max){
     let d = max - min;
     return Math.floor(Math.random()*d) + min;
 }
+
+function floatRand(min , max){
+    let d = max - min;
+    return Math.random()*d + min;
+}

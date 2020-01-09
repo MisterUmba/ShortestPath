@@ -51,64 +51,66 @@ function generateRandomGraph(){
     }
 }
 
-function minNum(queue) {
-    let temp = queue.reduce((prev, curr) => prev < curr ? prev : curr);
-    queue.splice(queue.indexOf(temp), 1);
-    return temp;
-}
+// function minNum(queue) {
+//     let temp = queue.reduce((prev, curr) => prev < curr ? prev : curr);
+//     queue.splice(queue.indexOf(temp), 1);
+//     return temp;
+// }
 
-function maxNum(queue) {
-    let temp = queue.reduce((prev, curr) => prev > curr ? prev : curr);
-    queue.splice(queue.indexOf(temp), 1);
-    return temp;
-}
+// function maxNum(queue) {
+//     let temp = queue.reduce((prev, curr) => prev > curr ? prev : curr);
+//     queue.splice(queue.indexOf(temp), 1);
+//     return temp;
+// }
 
-function intersection(ed1, ed2){
-    let x1 = ed1.b.x, y1 = ed1.b.y, x2 = ed1.e.x, y2 = ed1.e.y;
-    let x3 = ed2.b.x, y3 = ed2.b.y, x4 = ed2.e.x, y4 = ed2.e.y;
+// function intersection(ed1, ed2){
+//     let x1 = ed1.b.x, y1 = ed1.b.y, x2 = ed1.e.x, y2 = ed1.e.y;
+//     let x3 = ed2.b.x, y3 = ed2.b.y, x4 = ed2.e.x, y4 = ed2.e.y;
 
-    let t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/
-    ((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
+//     let t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/
+//     ((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
 
-    let minX = minNum([x1,x2,x3,x4]); 
-    let maxX = maxNum([x1,x2,x3,x4]);
-    let minY = minNum([y1,y2,y3,y4]);
-    let maxY = maxNum([y1,y2,y3,y4]);
+//     let minX = minNum([x1,x2,x3,x4]); 
+//     let maxX = maxNum([x1,x2,x3,x4]);
+//     let minY = minNum([y1,y2,y3,y4]);
+//     let maxY = maxNum([y1,y2,y3,y4]);
 
-    let crossX = x1 + t*(x2 - x1);
-    let crossY = y1 + t*(y2 - y1);
+//     let crossX = x1 + t*(x2 - x1);
+//     let crossY = y1 + t*(y2 - y1);
     
-    if((crossX >= minX) && (crossX <= maxX) && (crossY >= minY) && (crossY <= maxY))
-        return [crossX, crossY];
-    return undefined;
-}
+//     if((crossX >= minX) && (crossX <= maxX) && (crossY >= minY) && (crossY <= maxY))
+//         return [crossX, crossY];
+//     return undefined;
+// }
 
-function globalIntersection(ed1){
-    for(let x = 0; x < Graph.length; x++){
-        for(let k = 0; k < Graph[x].Edges.length; k++){
-            if(intersection(ed1, Graph[x].Edges[k]))
-                return true;
-        }
-    }
-    return false;
-}
+// function globalIntersection(ed1){
+//     for(let x = 0; x < Graph.length; x++){
+//         for(let k = 0; k < Graph[x].Edges.length; k++){
+//             if(intersection(ed1, Graph[x].Edges[k]))
+//                 return true;
+//         }
+//     }
+//     return false;
+// }
 
-function generateRandomEdges(){
-    for(let x = 0; x < Graph.length; x++){
-        for(let k = 0; k < Graph.length; k++){
-            if(distance(Graph[x], Graph[k]) <= radius * 5)
-                connectNodes(Graph[x], Graph[k]);
-        }
-    }
-}
+// function generateRandomEdges(){
+//     for(let x = 0; x < Graph.length; x++){
+//         for(let k = 0; k < Graph.length; k++){
+//             if(distance(Graph[x], Graph[k]) <= radius * 5)
+//                 connectNodes(Graph[x], Graph[k]);
+//         }
+//     }
+// }
 
-function generateCompleteEdges(){
-    Graph = [];
+// function generateCompleteEdges(){
 
-    for(let x = 0; x < Graph.length; x++){
-        for(let k = 0; k < Graph.length; k++){
-                connectNodes(Graph[x], Graph[k]);
-        }
-    }
+//     let ed = undefined;
+//     for(let x = 0; x < Graph.length; x++){
+//         for(let k = 0; k < Graph.length; k++){
+//             ed = new Edge(Graph[x],Graph[k]);
+//             if(!globalIntersection(ed))
+//                 connectNodes(Graph[x], Graph[k]);
+//         }
+//     }
     
-}
+// }

@@ -1,0 +1,16 @@
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: block;
+}
+
+#Shortest_Path_Canvas_Screen {
+    width: 100%;
+    height: 100%;
+}
+
+#mainGrid{
+    height: 100%;
+}

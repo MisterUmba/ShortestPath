@@ -19,9 +19,14 @@ function drawNewEdge(b, e){
     newEdge = new Edge(b, e);
 }
 
+window.addEventListener('resize', function(){
+    console.log("test!!!");
+})
+
 function draw(){
     clear();
     pen.save();
+
     pen.fillStyle = "white";
     pen.lineWidth = 10;
     

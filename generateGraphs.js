@@ -10,9 +10,6 @@ function globalCollision(node, space){
     return undefined;
 }
 
-function moveNode(){
-
-}
 
 function generateRandomGraph(){
     Graph = [];
@@ -34,6 +31,7 @@ function generateRandomGraph(){
 
                 k.x = Math.floor(k.x + space * (a/c));
                 k.y = Math.floor(k.y + space * (b/c));
+                console.log("push")
             }else{
                 break;
             }
@@ -43,8 +41,8 @@ function generateRandomGraph(){
     }
 
     for(let x = 0; x < Graph.length; x ++){
-        if(Graph[x].x > canvas.width - radius|| Graph[x].x < radius ||
-             Graph[x].y < radius || Graph[x].y > canvas.height - radius){
+        if(Graph[x].x > canvas.clientWidth - radius|| Graph[x].x < radius ||
+             Graph[x].y < radius || Graph[x].y > canvas.clientHeight - radius){
                 let pos = Graph.indexOf(Graph[x]);
                 Graph.splice(pos, 1);
              }

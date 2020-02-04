@@ -1,6 +1,7 @@
 let canvas = document.getElementById("Shortest_Path_Canvas_Screen");
 let pen = canvas.getContext("2d");
 let radius = 20;
+window.devicePixelRatio = 2;
 
 //Show new edge
 let newEdge = undefined;
@@ -19,27 +20,37 @@ function drawNewEdge(b, e){
     newEdge = new Edge(b, e);
 }
 
-window.addEventListener('resize', function(){
-    console.log("test!!!");
-})
+function resize(canvas){
+    // Lookup the size the browser is displaying the canvas.
+    let dispW = canvas.clientWidth;
+    let dispH = canvas.clientHeight;
+
+    // Check if canvas is not same size
+    if (canvas.width !== dispW || canvas.height !== dispH){
+        // Make the canvas the same size
+        canvas.width = dispW;
+        canvas.height = dispH;
+    }
+}
 
 function draw(){
+    resize(canvas);
     clear();
     pen.save();
 
     pen.fillStyle = "white";
     pen.lineWidth = 10;
-    
+
     if(newEdge !== undefined){
         pen.save();
-    
+
         pen.strokeStyle = "white";
         pen.lineWidth = 10;
         pen.beginPath();
         pen.moveTo(newEdge.b.x, newEdge.b.y);
         pen.lineTo(newEdge.e.x, newEdge.e.y);
         pen.stroke();
-    
+
         pen.restore();
     }
 
@@ -81,7 +92,7 @@ function draw(){
         if(Graph[x].selected)
             pen.stroke();
         if(Graph[x].start){
-            pen.strokeStyle = "Gold"; 
+            pen.strokeStyle = "Gold";
             pen.stroke()
             pen.strokeStyle = "red";
         }
@@ -93,7 +104,7 @@ function draw(){
         pen.fillStyle = "red";
         pen.fillText(x, Graph[x].x, Graph[x].y);
     }
-    
+
 
     pen.restore();
 }

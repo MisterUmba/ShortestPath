@@ -1,5 +1,5 @@
 #mySidenav {
-  height: 50vw;
+  height: 100%;
   width: 0px;
   position: fixed;
   z-index: 1;
@@ -8,7 +8,7 @@
   background-color: rgba(244, 244, 244, .5);
   overflow: hidden;
   transition: 0.5s;
-  border-radius: 1%;
+  border-radius: 10px;
   padding: 0px;
 }
 
@@ -35,4 +35,5 @@
   left: 0;
   top: 0;
   z-index: 3;
+  transition: 0.5s;
 }

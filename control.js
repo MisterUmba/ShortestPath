@@ -224,11 +224,10 @@ document.getElementById("mySidenav").style.margin = "0px"
 function closeNav(){
     let x = document.getElementById("mySidenav");
     let b = document.getElementById("navBtn");
-    console.log(x.style.width)
     if(x.style.width === "0px"){
         x.style.width = "30vw";
-        x.style.margin = "2vw";
-        b.style.left = "32vw";
+        x.style.margin = "10px";
+        b.style.left = "30vw";
         b.innerHTML = "&times";
     }else{
         x.style.width = "0px";

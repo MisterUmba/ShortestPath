@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <title>Shortest Path</title>
 
     <style>
-        html, body{
+        html,
+        body {
             height: 100%;
             width: 100%;
             margin: 0;
@@ -15,17 +17,56 @@
     </style>
 
 </head>
+
 <body>
     <div class="container-fluid" id="screen">
         <div class="row">
 
             <div id="mySidenav" class="sidenav">
-                <div>
-                    <!-- <input type="text">
-                    <input type="text">
-                    <input type="text">
-                    <input type="text">
-                    <input type="text"> -->
+                <div class="container">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="algo">Algorithms</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Dijkstra SPF</option>
+                                    <option>A star</option>
+                                    <option>Bellman-Ford</option>
+                                    <option>Prim's MST</option>
+                                    <option>Kruskel's MST</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="algo">Generating Vertices</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Randomly positioned vertices</option>
+                                    <option>Grid positioned vertices</option>
+                                    <option>Cluster positioned vertices</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="algo">Generating Edges</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Randomly positioned Edge</option>
+                                    <option>Grid-like Edges</option>
+                                    <option>Generated using triangulation</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    Check me out
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
                 </div>
             </div>
             <div id="canvas_div">

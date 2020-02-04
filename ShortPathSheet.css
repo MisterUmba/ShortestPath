@@ -1,5 +1,39 @@
-canvas {
-    background-color: blue; 
-    width: 100%;
-    height: auto;
-  }
+#mySidenav {
+  height: 50vw;
+  width: 0px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(244, 244, 244, .5);
+  overflow: hidden;
+  transition: 0.5s;
+  border-radius: 1%;
+  padding: 0px;
+}
+
+#navBtn{
+  z-index: 1;
+  position: relative;
+  font-size: xx-large;
+}
+
+#canvas_div{
+  position: fixed;
+  height: 100vw;
+  width: 100vw;
+}
+
+#canvas_div canvas{
+  width: 100%;
+  height: auto;
+}
+
+#navBtn{
+  position: absolute;
+  color: white;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+

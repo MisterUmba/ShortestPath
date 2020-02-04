@@ -1,6 +1,7 @@
 let canvas = document.getElementById("Shortest_Path_Canvas_Screen");
 let pen = canvas.getContext("2d");
 let radius = 20;
+window.devicePixelRatio = 2;
 
 //Show new edge
 let newEdge = undefined;
@@ -19,7 +20,21 @@ function drawNewEdge(b, e){
     newEdge = new Edge(b, e);
 }
 
+function resize(canvas){
+    // Lookup the size the browser is displaying the canvas.
+    let dispW = canvas.clientWidth;
+    let dispH = canvas.clientHeight;
+
+    // Check if canvas is not same size
+    if (canvas.width !== dispW || canvas.height !== dispH){
+        // Make the canvas the same size
+        canvas.width = dispW;
+        canvas.height = dispH;
+    }
+}
+
 function draw(){
+    resize(canvas);
     clear();
     pen.save();
     pen.fillStyle = "white";

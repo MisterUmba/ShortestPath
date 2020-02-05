@@ -84,6 +84,7 @@ function connectNodes(node1, node2) {
     node2.addEdge(ed1);
 }
 
+// Clicking down for dragging and creating new node
 document.addEventListener("mousedown", function (ev) {
     let pos = getMousePos(canvas, ev);
     EDGINGNODE = nodeAt(pos.x, pos.y);
@@ -205,14 +206,16 @@ document.addEventListener("dblclick", function (ev) {
     let pos = getMousePos(canvas, ev);
 
     let node = nodeAt(pos.x, pos.y);
-    for (let k = 0; k < Graph.length; k++) {
-        Graph[k].start = false;
-        GOLD = undefined;
+    if(node !== undefined){
+        for (let k = 0; k < Graph.length; k++) {
+            Graph[k].start = false;
+            GOLD = undefined;
+        }
+    
+        GOLD = node;
+        node.start = true;
+        shortestPath(GOLD);
     }
-
-    GOLD = node;
-    node.start = true;
-    shortestPath(GOLD);
 })
 
 
@@ -238,3 +241,7 @@ function closeNav(){
 }
 
 closeNav(); // Make it so that when loaded the side part is open
+
+function createGraph(){
+    console.log("What is the meaning of life the universe and everything!")
+}

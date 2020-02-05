@@ -60,7 +60,7 @@ document.addEventListener("keydown", function (ev) {
     }
 });
 
-function distance(node1, node2){
+function distance(node1, node2) {
     let a = Math.abs(node1.x - node2.x);
     let b = Math.abs(node1.y - node2.y);
 
@@ -68,8 +68,8 @@ function distance(node1, node2){
 }
 
 function connectNodes(node1, node2) {
-    for(let x = 0; x < node1.Edges.length; x ++){
-        if(node1.Edges[x].e === node2){
+    for (let x = 0; x < node1.Edges.length; x++) {
+        if (node1.Edges[x].e === node2) {
             return;
         }
     }
@@ -90,15 +90,15 @@ document.addEventListener("mousedown", function (ev) {
     EDGINGNODE = nodeAt(pos.x, pos.y);
 });
 
-document.addEventListener("mousemove", function(ev){
-    if(EDGINGNODE !== undefined){
+document.addEventListener("mousemove", function (ev) {
+    if (EDGINGNODE !== undefined) {
         //console.log("Moving!")
         //drawNewEdge(EDGINGNODE, getMousePos(canvas, ev));
-        if(newEdge === undefined){
+        if (newEdge === undefined) {
             drawNewEdge(EDGINGNODE, getMousePos(canvas, ev))
-        }else{
-            let pos = getMousePos(canvas,ev);
-            newEdge.e.x = pos.x; 
+        } else {
+            let pos = getMousePos(canvas, ev);
+            newEdge.e.x = pos.x;
             newEdge.e.y = pos.y;
         }
     }
@@ -158,8 +158,8 @@ document.addEventListener("mouseup", function (ev) {
             Graph.push(new Node(p.x, p.y));
             erasePath();
 
-            for(let x = 0; x < Graph.length; x++){
-                if(Graph[x].start){
+            for (let x = 0; x < Graph.length; x++) {
+                if (Graph[x].start) {
                     Graph[x].start = false;
                 }
             }
@@ -206,12 +206,12 @@ document.addEventListener("dblclick", function (ev) {
     let pos = getMousePos(canvas, ev);
 
     let node = nodeAt(pos.x, pos.y);
-    if(node !== undefined){
+    if (node !== undefined) {
         for (let k = 0; k < Graph.length; k++) {
             Graph[k].start = false;
             GOLD = undefined;
         }
-    
+
         GOLD = node;
         node.start = true;
         shortestPath(GOLD);
@@ -219,22 +219,22 @@ document.addEventListener("dblclick", function (ev) {
 })
 
 
-setInterval(draw, 1000 / 60); 
+setInterval(draw, 1000 / 60);
 
 // Input Buttons Controls
 document.getElementById("mySidenav").style.width = "0px";
 document.getElementById("mySidenav").style.margin = "0px"
-function closeNav(){
+function closeNav() {
     let x = document.getElementById("mySidenav");
     let b = document.getElementById("navBtn");
-    if(x.style.width === "0px"){
+    if (x.style.width === "0px") {
         x.style.width = "30vw";
         x.style.margin = "10px";
         b.style.left = "30vw";
         b.innerHTML = "&times";
-    }else{
+    } else {
         x.style.width = "0px";
-        x.style.margin ="0px";
+        x.style.margin = "0px";
         b.style.left = "0px";
         b.innerHTML = "&#9776";
     }
@@ -242,6 +242,56 @@ function closeNav(){
 
 closeNav(); // Make it so that when loaded the side part is open
 
-function createGraph(){
-    console.log("What is the meaning of life the universe and everything!")
+function createGraph() {
+    let vertexType = document.getElementById("vertices");
+    switch (vertexType.value) {
+        case "Randomly positioned vertices":
+            generateRandomGraph();
+            break;
+        case "Grid positioned vertices":
+            generateGridGraph();
+            break;
+        case "Cluster positioned vertices":
+            generateClusterGraph();
+        default:
+            console.log("Something's Wrong. Getting option which shouldn't be there ")
+    };
+
+    let edgeType = document.getElementById("edges");
+    switch (edgeType.value) {
+        case "Randomly positioned Edges":
+            generateRandomEdges();
+            break;
+        case "Grid-like Edges":
+            generateGridEdges();
+            break;
+        case "Generated using triangulation":
+            generateTriangleEdges();
+            break;
+        default:
+            console.log("Something's Wrong. Getting option which shouldn't be there ");
+            break;
+    };
+
+    let algoType = document.getElementById("Algorithms");
+    switch (algoType.value) {
+        case "Dijkstra SPF":
+            console.log("Dijkstra");
+            break;
+        case "A star":
+            console.log("A Star");
+            break;
+        case "Bellman-Ford":
+            console.log("Bellman-Ford");
+            break;
+        case "Prim's MST":
+            console.log("Prim's MST");
+            break;
+        case "Kruskel's MST":
+            console.log("Kruskel's MST");
+            break;
+        default:
+            console.log("Something's Wrong. Getting option which shouldn't be there ");
+            break;
+    }
 }

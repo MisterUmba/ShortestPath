@@ -8,6 +8,14 @@ function globalCollision(node, space){
             return [node, Graph[x]];
     }
     return undefined;
+};
+
+function generateGridGraph(){
+    console.log("Grid Graph")
+};
+
+function generateClusterGraph(){
+    console.log("Cluster Graph")
 }
 
 

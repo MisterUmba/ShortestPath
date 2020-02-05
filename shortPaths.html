@@ -25,22 +25,11 @@
             <div id="mySidenav" class="sidenav">
                 <div class="container">
                     <form>
+                        <h2>Controls & Options</h2>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="algo">Algorithms</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Dijkstra SPF</option>
-                                    <option>A star</option>
-                                    <option>Bellman-Ford</option>
-                                    <option>Prim's MST</option>
-                                    <option>Kruskel's MST</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="algo">Generating Vertices</label>
-                                <select id="inputState" class="form-control">
+                                <label for="gene_vertices">Generating Vertices</label>
+                                <select id="vertices" class="form-control">
                                     <option selected>Randomly positioned vertices</option>
                                     <option>Grid positioned vertices</option>
                                     <option>Cluster positioned vertices</option>
@@ -50,23 +39,40 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="algo">Generating Edges</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Randomly positioned Edge</option>
+                                <select id="edges" class="form-control">
+                                    <option selected>Randomly positioned Edges</option>
                                     <option>Grid-like Edges</option>
                                     <option>Generated using triangulation</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="algo">Algorithms</label>
+                                <select id="Algorithms" class="form-control">
+                                    <option selected>Dijkstra SPF</option>
+                                    <option>A star</option>
+                                    <option>Bellman-Ford</option>
+                                    <option>Prim's MST</option>
+                                    <option>Kruskel's MST</option>
+                                </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <div class="form-check">
+                            <input type="checkbox" value="Animation Mode" class="form-check-input" id="animationMode">
+                            <label for="animationMode">Animation Mode</label>
+                        </div>
+                        <input type="button" class="btn btn-primary" value="Generate Graph" onclick="createGraph()">
                     </form>
+
+                    <h2>Graphing Tutorials</h2>
+                    <p><strong>Click</strong> onto the screen to creating a <strong>new vertices</strong></p>
+                    <p><strong>Drag one vertex to another</strong> to connect vertices with a <strong>new edge</strong></p>
+                    <p><strong>Select vertex</strong> by <strong>clicking</strong> on it</p>
+                    <p><strong>Delete vertices</strong> and all edges connected to it by <strong>Selecting and pressing DELETE key</strong>.</p>
+                    <p><strong>Double Click</strong> to select a vertex as a <strong>starting point</strong> for an algorithm. </p>
+
                 </div>
             </div>
             <div id="canvas_div">

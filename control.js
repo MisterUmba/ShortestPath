@@ -236,3 +236,5 @@ function closeNav(){
         b.innerHTML = "&#9776";
     }
 }
+
+closeNav(); // Make it so that when loaded the side part is open

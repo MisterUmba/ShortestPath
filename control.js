@@ -203,7 +203,7 @@ function shortestPath(src) {
     }
     let temp = "";
     for (let k = 0; k < Graph.length; k++) { temp += (Graph.indexOf(Graph[k]) + "---->" + Graph.indexOf(Graph[k].path.last)) + "\n" }
-    console.log(temp);
+    //console.log(temp);
 }
 
 document.addEventListener("dblclick", function (ev) {

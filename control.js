@@ -106,6 +106,10 @@ document.addEventListener("mousemove", function (ev) {
 
 function highlightPath(node) {
     let ed = undefined;
+    if(node.path.dist === Infinity){
+        alert("There is no path to that node");
+        return;
+    }
     while (node !== GOLD) {
         for (let k = 0; k < node.Edges.length; k++) {
             if (node.Edges[k].e === node.path.last) {

@@ -27,8 +27,9 @@ function generateRandomGraph(){
     let space = 3*radius;
     for(let x = 0; x < ballsFit; x++){
         
-        k = (new Node(floatRand(radius, canvas.width - radius),
-        floatRand(radius, canvas.height - radius))); /*new Node(canvas.width/2 + Math.random()*10, canvas.height/2 + Math.random()*10);*/
+        k = 
+        (new Node(floatRand(radius, canvas.width - radius),floatRand(radius, canvas.height - radius))); 
+        /*new Node(canvas.width/2 + Math.random()*10, canvas.height/2 + Math.random()*10);*/
         
         while(true){
             let points = globalCollision(k, space);
@@ -37,9 +38,9 @@ function generateRandomGraph(){
                 let b = (points[0].y - points[1].y)
                 let c = Math.sqrt(a*a + b*b);
 
-                k.x = Math.floor(k.x + space * (a/c));
-                k.y = Math.floor(k.y + space * (b/c));
-                console.log("push")
+                console.log(points);
+                k.x = (k.x + space * (a/c));
+                k.y = (k.y + space * (b/c));
             }else{
                 break;
             }

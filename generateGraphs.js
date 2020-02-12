@@ -1,60 +1,60 @@
-function collision(b1, b2, space){
+function collision(b1, b2, space) {
     return (distance(b1, b2) <= space)
 }
 
-function globalCollision(node, space){
-    for(let x = 0; x < Graph.length; x ++){
-        if(collision(node, Graph[x], space) && node !== Graph[x])
+function globalCollision(node, space) {
+    for (let x = 0; x < Graph.length; x++) {
+        if (collision(node, Graph[x], space) && node !== Graph[x])
             return [node, Graph[x]];
     }
     return undefined;
 };
 
-function generateGridGraph(){
-    console.log("Grid Graph")
+function generateGridGraph() {
+    console.log("Grid Graph");
 };
 
-function generateClusterGraph(){
+function generateClusterGraph() {
     console.log("Cluster Graph")
 }
 
 
-function generateRandomGraph(){
+function generateRandomGraph() {
     Graph = [];
-    let ballsFit = Math.floor(((canvas.height*canvas.width)/(Math.pow(2*radius, 2)))*(20/100));
+    let ballsFit = Math.floor(((canvas.height * canvas.width) / (Math.pow(2 * radius, 2))) * (20 / 100));
 
     let k = undefined;
-    let space = 3*radius;
-    for(let x = 0; x < ballsFit; x++){
-        
-        k = 
-        (new Node(floatRand(radius, canvas.width - radius),floatRand(radius, canvas.height - radius))); 
+    let space = 3 * radius;
+    for (let x = 0; x < ballsFit; x++) {
+
+        k =
+            (new Node(floatRand(radius, canvas.width - radius), floatRand(radius, canvas.height - radius)));
         /*new Node(canvas.width/2 + Math.random()*10, canvas.height/2 + Math.random()*10);*/
-        
-        while(true){
+
+        while (true) {
             let points = globalCollision(k, space);
-            if(points !== undefined){
+            if (points !== undefined) {
                 let a = (points[0].x - points[1].x)
                 let b = (points[0].y - points[1].y)
-                let c = Math.sqrt(a*a + b*b);
+                let c = Math.sqrt(a * a + b * b);
 
                 console.log(points);
-                k.x = (k.x + space * (a/c));
-                k.y = (k.y + space * (b/c));
-            }else{
+                k.x = (k.x + space * (a / c));
+                k.y = (k.y + space * (b / c));
+            } else {
                 break;
             }
         }
-        
+
         Graph.push(k);
     }
 
-    for(let x = 0; x < Graph.length; x ++){
-        if(Graph[x].x > canvas.clientWidth - radius|| Graph[x].x < radius ||
-             Graph[x].y < radius || Graph[x].y > canvas.clientHeight - radius){
-                let pos = Graph.indexOf(Graph[x]);
-                Graph.splice(pos, 1);
-             }
+    for (let x = 0; x < Graph.length; x++) {
+        if (Graph[x].x > canvas.clientWidth - radius || Graph[x].x < radius ||
+            Graph[x].y < radius || Graph[x].y > canvas.clientHeight - radius) {
+            let pos = Graph.indexOf(Graph[x]);
+            Graph.splice(pos, 1);
+        }
     }
 }
 
@@ -84,7 +84,7 @@ function generateRandomGraph(){
 
 //     let crossX = x1 + t*(x2 - x1);
 //     let crossY = y1 + t*(y2 - y1);
-    
+
 //     if((crossX >= minX) && (crossX <= maxX) && (crossY >= minY) && (crossY <= maxY))
 //         return [crossX, crossY];
 //     return undefined;
@@ -100,10 +100,10 @@ function generateRandomGraph(){
 //     return false;
 // }
 
-function generateRandomEdges(){
-    for(let x = 0; x < Graph.length; x++){
-        for(let k = 0; k < Graph.length; k++){
-            if(distance(Graph[x], Graph[k]) <= radius * 5)
+function generateRandomEdges() {
+    for (let x = 0; x < Graph.length; x++) {
+        for (let k = 0; k < Graph.length; k++) {
+            if (distance(Graph[x], Graph[k]) <= radius * 5)
                 connectNodes(Graph[x], Graph[k]);
         }
     }
@@ -119,5 +119,5 @@ function generateRandomEdges(){
 //                 connectNodes(Graph[x], Graph[k]);
 //         }
 //     }
-    
+
 // }

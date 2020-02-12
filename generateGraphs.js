@@ -109,15 +109,15 @@ function generateRandomEdges(){
     }
 }
 
-function generateCompleteEdges(){
+// function generateCompleteEdges(){
 
-    let ed = undefined;
-    for(let x = 0; x < Graph.length; x++){
-        for(let k = 0; k < Graph.length; k++){
-            ed = new Edge(Graph[x],Graph[k]);
-            if(!globalIntersection(ed))
-                connectNodes(Graph[x], Graph[k]);
-        }
-    }
+//     let ed = undefined;
+//     for(let x = 0; x < Graph.length; x++){
+//         for(let k = 0; k < Graph.length; k++){
+//             ed = new Edge(Graph[x],Graph[k]);
+//             if(!globalIntersection(ed))
+//                 connectNodes(Graph[x], Graph[k]);
+//         }
+//     }
     
-}
+// }

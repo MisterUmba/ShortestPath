@@ -68,6 +68,8 @@ function distance(node1, node2) {
 }
 
 function connectNodes(node1, node2) {
+
+    // Stop recreating graph which already exist.
     for (let x = 0; x < node1.Edges.length; x++) {
         if (node1.Edges[x].e === node2) {
             return;

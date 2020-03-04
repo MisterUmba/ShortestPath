@@ -12,6 +12,19 @@ function globalCollision(node, space) {
 
 function generateGridGraph() {
     console.log("Grid Graph");
+    Graph = [];
+    let space = 3 * radius;
+
+    let column = canvas.width/(radius+space);
+    let row = canvas.height/(radius+space);
+
+    let k = undefined;
+    for (let y = 0; y < row; y++) {
+        for (let x = 0; x < column; x++) {
+            k = new Node(x*space+space, y*space+space);
+            Graph.push(k);
+        }
+    }
 };
 
 function generateClusterGraph() {
@@ -38,7 +51,6 @@ function generateRandomGraph() {
                 let b = (points[0].y - points[1].y)
                 let c = Math.sqrt(a * a + b * b);
 
-                console.log(points);
                 k.x = (k.x + space * (a / c));
                 k.y = (k.y + space * (b / c));
             } else {

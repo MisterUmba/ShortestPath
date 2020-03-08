@@ -15,12 +15,12 @@ function generateGridGraph() {
     Graph = [];
     let space = 3 * radius;
 
-    let column = canvas.width/(radius+space);
-    let row = canvas.height/(radius+space);
+    let column = (canvas.width/(2*radius+space));
+    let row = (canvas.height/(2*radius+space));
 
     let k = undefined;
-    for (let y = 0; y < row; y++) {
-        for (let x = 0; x < column; x++) {
+    for (let y = 0; y < row*(1/2+1); y++) {
+        for (let x = 0; x < column*(1/2+1); x++) {
             k = new Node(x*space+space, y*space+space);
             Graph.push(k);
         }

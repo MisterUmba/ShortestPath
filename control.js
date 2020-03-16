@@ -60,13 +60,6 @@ document.addEventListener("keydown", function (ev) {
     }
 });
 
-function distance(node1, node2) {
-    let a = Math.abs(node1.x - node2.x);
-    let b = Math.abs(node1.y - node2.y);
-
-    return Math.floor(Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)));
-}
-
 function connectNodes(node1, node2) {
 
     // Stop recreating graph which already exist.

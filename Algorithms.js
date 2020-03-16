@@ -1,4 +1,5 @@
 
+// Highlight the edges from the node to the source node
 function highlightPath(node) {
     let ed = undefined;
     if(node.path.dist === Infinity){
@@ -26,6 +27,7 @@ function highlightPath(node) {
     }
 }
 
+// Clears all the highlited path.
 function erasePath(node) {
     for (let x = 0; x < Graph.length; x++) {
         for (let i = 0; i < Graph[x].Edges.length; i++) {
@@ -34,12 +36,14 @@ function erasePath(node) {
     }
 }
 
+// Find the node with the least cost/dist
 function minUnvisited(queue) {
     let temp = queue.reduce((prev, curr) => prev.path.dist < curr.path.dist ? prev : curr);
     queue.splice(queue.indexOf(temp), 1);
     return temp;
 }
 
+// Dijkstra's shortest path algorithm
 function dijkstra(src) {
     let Q = [];
     let S = [];

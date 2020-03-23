@@ -43,15 +43,21 @@ function minUnvisited(queue) {
     return temp;
 }
 
-// Dijkstra's shortest path algorithm
-function dijkstra(src) {
-    let Q = [];
-    let S = [];
+// Resets the graph's weighs 
+function resetGraph(src){
     for (let k = 0; k < Graph.length; k++) {
         Graph[k].path = { dist: Infinity, last: undefined };
         Q.push(Graph[k]);
     }
     src.path = { dist: 0, last: src };
+}
+
+// Dijkstra's shortest path algorithm
+function dijkstra(src) {
+    let Q = [];
+    let S = [];
+    
+    resetGraph(src);
 
     while (Q.length !== 0) {
         let curr = minUnvisited(Q);
@@ -75,16 +81,19 @@ function heuristics(k, m){
     return distance(k, m);
 }
 
-// Dijkstra's shortest path algorithm
-function Astar(src, goal) {
+// A* shortest path algorithm
+function astar(src, goal) {
     let open_list = []
     let close_list = []
+
+    resetGraph(src);
 
     open_list.push(src);
     let curr_node = undefined;
 
     while(curr_node !== goal){
         curr_node = minUnvisited(open_list);
+        close_list.push(curr_node);
         if(curr_node === goal){
             break;
         }else{
@@ -93,4 +102,21 @@ function Astar(src, goal) {
         }
             
     }
+}
+
+// Bellman-ford algorithm 
+function bellmanford(src){
+
+}
+
+
+// Prim's MST algorithm 
+function prim(src){
+    
+}
+
+
+// kruskel's MST algorithm 
+function kruskel(src){
+    
 }

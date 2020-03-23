@@ -70,3 +70,27 @@ function dijkstra(src) {
     for (let k = 0; k < Graph.length; k++) { temp += (Graph.indexOf(Graph[k]) + "---->" + Graph.indexOf(Graph[k].path.last)) + "\n" }
     //console.log(temp);
 }
+
+function heuristics(k, m){
+    return distance(k, m);
+}
+
+// Dijkstra's shortest path algorithm
+function Astar(src, goal) {
+    let open_list = []
+    let close_list = []
+
+    open_list.push(src);
+    let curr_node = undefined;
+
+    while(curr_node !== goal){
+        curr_node = minUnvisited(open_list);
+        if(curr_node === goal){
+            break;
+        }else{
+            close_list.push(curr_node);
+            
+        }
+            
+    }
+}

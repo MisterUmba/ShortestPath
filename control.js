@@ -116,6 +116,10 @@ document.addEventListener("mouseup", function (ev) {
             } else {
                 temp.selected = true;
                 if (GOLD !== undefined) highlightPath(temp);
+                else if(document.getElementById("Algorithms").value === "A star") {
+                    astar(GOLD, temp);
+                    highlightPath(temp);
+                }
             }
 
         } else {
@@ -146,7 +150,29 @@ document.addEventListener("dblclick", function (ev) {
 
         GOLD = node;
         node.start = true;
-        dijkstra(GOLD);
+        
+        
+        let algoType = document.getElementById("Algorithms");
+        switch (algoType.value) {
+            case "Dijkstra SPF":
+                dijkstra(GOLD)
+                break;
+            case "A star":
+                astar(GOLD)
+                break;
+            case "Bellman-Ford":
+                bellmanford(GOLD);
+                break;
+            case "Prim's MST":
+                prim(GOLD);
+                break;
+            case "Kruskel's MST":
+                kruskel(GOLD);
+                break;
+            default:
+                console.log("Something's Wrong. Getting option which shouldn't be there ");
+                break;
+        }
     }
 })
 
@@ -204,26 +230,4 @@ function createGraph() {
             console.log("Something's Wrong. Getting option which shouldn't be there ");
             break;
     };
-
-    let algoType = document.getElementById("Algorithms");
-    switch (algoType.value) {
-        case "Dijkstra SPF":
-            console.log("Dijkstra");
-            break;
-        case "A star":
-            console.log("A Star");
-            break;
-        case "Bellman-Ford":
-            console.log("Bellman-Ford");
-            break;
-        case "Prim's MST":
-            console.log("Prim's MST");
-            break;
-        case "Kruskel's MST":
-            console.log("Kruskel's MST");
-            break;
-        default:
-            console.log("Something's Wrong. Getting option which shouldn't be there ");
-            break;
-    }
 }

@@ -44,7 +44,7 @@ function minUnvisited(queue) {
 }
 
 // Resets the graph's weighs 
-function resetGraph(src){
+function resetGraph(src, Q){
     for (let k = 0; k < Graph.length; k++) {
         Graph[k].path = { dist: Infinity, last: undefined };
         Q.push(Graph[k]);
@@ -57,7 +57,7 @@ function dijkstra(src) {
     let Q = [];
     let S = [];
     
-    resetGraph(src);
+    resetGraph(src, Q);
 
     while (Q.length !== 0) {
         let curr = minUnvisited(Q);
@@ -81,26 +81,51 @@ function heuristics(k, m){
     return distance(k, m);
 }
 
+function gScore(curr, src){
+    let sum = 0; 
+    let last = undefined;
+    while(curr !== src){
+        last = curr
+        curr = curr.path.last;
+        sum += distance(curr, last);
+    }
+    return sum;
+}
+
 // A* shortest path algorithm
 function astar(src, goal) {
+    console.log(src);
+    if(goal === undefined) return;
     let open_list = []
     let close_list = []
-
-    resetGraph(src);
+    
+    for (let k = 0; k < Graph.length; k++) {
+        Graph[k].path = { dist: Infinity, last: undefined };
+    }
+    src.path = { dist: 0, last: src };
 
     open_list.push(src);
-    let curr_node = undefined;
 
-    while(curr_node !== goal){
-        curr_node = minUnvisited(open_list);
+    while(open_list.length !== 0 ){
+        let curr_node = minUnvisited(open_list);
+        console.log(curr_node, Graph.indexOf(curr_node),": "+open_list.length);
         close_list.push(curr_node);
+        
         if(curr_node === goal){
-            break;
-        }else{
-            close_list.push(curr_node);
-            
+            return;
         }
-            
+
+        for(let x = 0; x < curr_node.Edges.length; x++){
+            let score = gScore(curr_node, src);
+            if(score + curr_node.Edges[x].cost < curr_node.Edges[x].e.path.dist){
+                curr_node.Edges[x].e.path.last = curr_node;
+                curr_node.Edges[x].e.path.dist = score + curr_node.Edges[x].cost + distance(curr_node, goal);
+                if(!close_list.includes(curr_node.Edges[x].e)){
+                    open_list.push(curr_node.Edges[x].e);
+                }
+            }
+        }
+
     }
 }
 

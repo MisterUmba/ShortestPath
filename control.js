@@ -115,11 +115,14 @@ document.addEventListener("mouseup", function (ev) {
                 if (GOLD !== undefined) erasePath(temp);
             } else {
                 temp.selected = true;
-                if (GOLD !== undefined) highlightPath(temp);
-                else if(document.getElementById("Algorithms").value === "A star") {
-                    astar(GOLD, temp);
-                    highlightPath(temp);
-                }
+                if (GOLD !== undefined){
+                    if(document.getElementById("Algorithms").value === "A star") {
+                        astar(GOLD, temp);
+                        highlightPath(temp);
+                    }else if(document.getElementById("Algorithms").value === "Dijkstra SPF"){
+                        highlightPath(temp);
+                    }
+                } 
             }
 
         } else {

@@ -77,20 +77,6 @@ function dijkstra(src) {
     //console.log(temp);
 }
 
-function heuristics(k, m){
-    return distance(k, m);
-}
-
-function gScore(curr, src){
-    let sum = 0; 
-    let last = undefined;
-    while(curr !== src){
-        last = curr
-        curr = curr.path.last;
-        sum += distance(curr, last);
-    }
-    return sum;
-}
 
 // A* shortest path algorithm
 function astar(src, goal) {
@@ -100,26 +86,28 @@ function astar(src, goal) {
     let close_list = []
     
     for (let k = 0; k < Graph.length; k++) {
-        Graph[k].path = { dist: Infinity, last: undefined };
+        Graph[k].path = {gScore: Infinity, dist: Infinity, last: undefined };
     }
-    src.path = { dist: 0, last: src };
+    src.path = {gScore: 0, dist: 0, last: src };
 
     open_list.push(src);
 
     while(open_list.length !== 0 ){
         let curr_node = minUnvisited(open_list);
-        console.log(curr_node, Graph.indexOf(curr_node),": "+open_list.length);
+        console.log(curr_node, Graph.indexOf(curr_node));
         close_list.push(curr_node);
         
         if(curr_node === goal){
-            return;
+            break;
         }
-
+        
         for(let x = 0; x < curr_node.Edges.length; x++){
-            let score = gScore(curr_node, src);
-            if(score + curr_node.Edges[x].cost < curr_node.Edges[x].e.path.dist){
+            let score = curr_node.path.gScore + curr_node.Edges[x].cost;
+            if(score < curr_node.Edges[x].e.path.gScore){
                 curr_node.Edges[x].e.path.last = curr_node;
-                curr_node.Edges[x].e.path.dist = score + curr_node.Edges[x].cost + distance(curr_node, goal);
+                curr_node.Edges[x].e.path.gScore = score;
+                curr_node.Edges[x].e.path.dist = score + distance(curr_node, goal);
+                
                 if(!close_list.includes(curr_node.Edges[x].e)){
                     open_list.push(curr_node.Edges[x].e);
                 }
@@ -127,6 +115,10 @@ function astar(src, goal) {
         }
 
     }
+
+    let temp = "";
+    for(let x = 0; x < Graph.length; x++) temp += `${x} --> ${Graph.indexOf(Graph[x].path.last)} \n`;
+    //console.log(temp);
 }
 
 // Bellman-ford algorithm 

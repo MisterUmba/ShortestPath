@@ -120,6 +120,10 @@ document.addEventListener("mouseup", function (ev) {
                         astar(GOLD, temp);
                         highlightPath(temp);
                     }else if(document.getElementById("Algorithms").value === "Dijkstra SPF"){
+                        dijkstra(GOLD);
+                        highlightPath(temp);
+                    }else if(document.getElementById("Algorithms").value === "Bellman-Ford"){
+                        bellmanford(GOLD);
                         highlightPath(temp);
                     }
                 } 

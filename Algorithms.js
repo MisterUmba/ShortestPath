@@ -123,7 +123,35 @@ function astar(src, goal) {
 
 // Bellman-ford algorithm 
 function bellmanford(src){
+    for(let x = 0; x < Graph.length; x++){
+        Graph[x].path = {dist: Infinity, last: undefined};
+    }
 
+    src.path = {dist: 0, last: src};
+
+    let edge_list = [];
+
+    for(let x = 0; x < Graph.length; x++){
+        for(let i = 0; i < Graph[x].Edges.length; i++){
+            edge_list.push(Graph[x].Edges[i])
+        }
+    }
+
+    console.log(`Size of Edge list: ${edge_list.length}`)
+
+    for(let i = 1; i < Graph.length; i ++){
+        for(let x = 0; x < edge_list.length; x++){
+            if(edge_list[x].b.path.dist + edge_list[x].cost < edge_list[x].e.path.dist){
+                console.log(`${edge_list[x].b.path.dist + edge_list[x].cost} < ${edge_list[x].e.path.dist}`);
+                edge_list[x].e.path.dist = edge_list[x].b.path.dist + edge_list[x].cost;
+                edge_list[x].e.path.last = edge_list[x].b;
+            }
+        }
+    }
+
+    let temp = "";
+    for(let x = 0; x < Graph.length; x++) temp += `${x} --> ${Graph.indexOf(Graph[x].path.last)} \n`;
+    console.log(temp);
 }
 
 

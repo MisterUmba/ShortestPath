@@ -62,3 +62,9 @@ function distance(node1, node2) {
 
     return Math.floor(Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)));
 }
+
+function probability(k){
+    if(k > 1 || k < 0)
+        return -1;
+    return (Math.random() < k);
+}

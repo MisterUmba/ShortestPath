@@ -15,13 +15,13 @@ function generateGridGraph() {
     Graph = [];
     let space = 3 * radius;
 
-    let column = (canvas.width/(2*radius+space));
-    let row = (canvas.height/(2*radius+space));
+    let column = (canvas.width / (2 * radius + space));
+    let row = (canvas.height / (2 * radius + space));
 
     let k = undefined;
-    for (let y = 0; y < row*(1/2+1); y++) {
-        for (let x = 0; x < column*(1/2+1); x++) {
-            k = new Node(x*space+space, y*space+space);
+    for (let y = 0; y < row * (1 / 3 + 1); y++) {
+        for (let x = 0; x < column * (1 / 2 + 1); x++) {
+            k = new Node(x * space + space, y * space + space);
             Graph.push(k);
         }
     }
@@ -70,66 +70,50 @@ function generateRandomGraph() {
     }
 }
 
-// function minNum(queue) {
-//     let temp = queue.reduce((prev, curr) => prev < curr ? prev : curr);
-//     queue.splice(queue.indexOf(temp), 1);
-//     return temp;
-// }
+function deviation() {
+    let space = 5 * radius;
 
-// function maxNum(queue) {
-//     let temp = queue.reduce((prev, curr) => prev > curr ? prev : curr);
-//     queue.splice(queue.indexOf(temp), 1);
-//     return temp;
-// }
+    Q = []
 
-// function intersection(ed1, ed2){
-//     let x1 = ed1.b.x, y1 = ed1.b.y, x2 = ed1.e.x, y2 = ed1.e.y;
-//     let x3 = ed2.b.x, y3 = ed2.b.y, x4 = ed2.e.x, y4 = ed2.e.y;
+    for (let x = 0; x < Graph.length; x++) {
+        for (let i = 0; i < Graph.length; i++) {
+            let dis = distance(Graph[i], Graph[x]);
+            if (dis <= space) {
+                Q.push(dis);
+            }
+        }
+    }
 
-//     let t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/
-//     ((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
+    // let Q = [17, 15, 23, 7, 9, 13]
 
-//     let minX = minNum([x1,x2,x3,x4]); 
-//     let maxX = maxNum([x1,x2,x3,x4]);
-//     let minY = minNum([y1,y2,y3,y4]);
-//     let maxY = maxNum([y1,y2,y3,y4]);
+    let mean = (function () { let sum = 0; for (let x = 0; x < Q.length; x++) { sum += Q[x] } /*console.log(`sum: ${sum}\n`);*/ return sum / Q.length; })();
 
-//     let crossX = x1 + t*(x2 - x1);
-//     let crossY = y1 + t*(y2 - y1);
+    // console.log(`mean: ${mean}`);
 
-//     if((crossX >= minX) && (crossX <= maxX) && (crossY >= minY) && (crossY <= maxY))
-//         return [crossX, crossY];
-//     return undefined;
-// }
+    return Math.sqrt((function () {
+        let sum = 0;
+        // let sum1 = 0;
+        for (let x = 0; x < Q.length; x++) {
+            sum += Math.pow((Q[x] - mean), 2);
+            // sum1 += Q[x] - mean;
+        }
 
-// function globalIntersection(ed1){
-//     for(let x = 0; x < Graph.length; x++){
-//         for(let k = 0; k < Graph[x].Edges.length; k++){
-//             if(intersection(ed1, Graph[x].Edges[k]))
-//                 return true;
-//         }
-//     }
-//     return false;
-// }
+        // console.log(`basic sum: ${sum1}\nadvance sum: ${sum}`);
+        return sum / (Q.length - 1);
+    })());
+}
+
+function s_curve(devi){
+    let min = -2.70805020110221, max = 2.425483229317202, base = 28.799;
+    if(devi < base) return (0.30);
+    return ((Math.log((41 - devi)/(devi - 25)) * (-1)) - min)/ (max - min)
+}
 
 function generateRandomEdges() {
     for (let x = 0; x < Graph.length; x++) {
         for (let k = 0; k < Graph.length; k++) {
-            if (distance(Graph[x], Graph[k]) <= radius * 5)
+            if (distance(Graph[x], Graph[k]) <= radius * 5 && probability(s_curve(deviation())))
                 connectNodes(Graph[x], Graph[k]);
         }
     }
 }
-
-// function generateCompleteEdges(){
-
-//     let ed = undefined;
-//     for(let x = 0; x < Graph.length; x++){
-//         for(let k = 0; k < Graph.length; k++){
-//             ed = new Edge(Graph[x],Graph[k]);
-//             if(!globalIntersection(ed))
-//                 connectNodes(Graph[x], Graph[k]);
-//         }
-//     }
-
-// }

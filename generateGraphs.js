@@ -110,9 +110,11 @@ function s_curve(devi){
 }
 
 function generateRandomEdges() {
+    let devi = deviation();
+
     for (let x = 0; x < Graph.length; x++) {
         for (let k = 0; k < Graph.length; k++) {
-            if (distance(Graph[x], Graph[k]) <= radius * 5 && probability(s_curve(deviation())))
+            if (distance(Graph[x], Graph[k]) <= radius * 5 && probability(s_curve(devi)))
                 connectNodes(Graph[x], Graph[k]);
         }
     }

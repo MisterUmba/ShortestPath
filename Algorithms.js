@@ -6,7 +6,7 @@ function highlightPath(node) {
         alert("There is no path to that node");
         return;
     }
-    while (node !== GOLD) {
+    while (node.path.last !== node) {
         for (let k = 0; k < node.Edges.length; k++) {
             if (node.Edges[k].e === node.path.last) {
                 ed = node.Edges[k];
@@ -21,8 +21,14 @@ function highlightPath(node) {
 
                 node = node.Edges[k].e;
             }
+        }
+    }
+}
 
-
+function highlightTree() {
+    for(let x = 0; x < Graph.length; x ++){
+        if(Graph[x].path.last !== undefined){
+            highlightPath(Graph[x]);
         }
     }
 }
@@ -156,8 +162,32 @@ function bellmanford(src) {
 
 
 // Prim's MST algorithm 
-function prim(src) {
+function prim() {
+    for(let x = 0; x < Graph.length; x++){
+        Graph[x].path = {dist: Infinity, last: undefined};
+    }
 
+    let k = rand(0, Graph.length);
+    Graph[k].path = {dist : 0, last : Graph[k]};
+
+    let queue = [];
+
+    Graph.forEach(item => queue.push(item));
+
+    while(queue.length !== 0){
+        let curr_node = minUnvisited(queue);
+        console.log(Graph.indexOf(curr_node))
+        curr_node.Edges.forEach(ed => {
+            if(ed.b.path.dist + ed.cost < ed.e.path.dist){
+                ed.e.path.dist = ed.cost + ed.b.path.dist;
+                ed.e.path.last = ed.b;
+            }
+        })
+    }
+
+    let temp = "";
+    for (let x = 0; x < Graph.length; x++) temp += `${x} ---- ${Graph[x].path.dist} ---> ${Graph.indexOf(Graph[x].path.last)} \n`;
+    console.log(temp);
 }
 
 function findParent(v){
@@ -183,11 +213,11 @@ function kruskal(src) {
     }
 
     let count = 0;
-    while(count < Graph.length - 1){
+    while(count < edge_list.length - 1){
         let curr_edge = minUnvisited(edge_list);
         if(findParent(curr_edge.b) !== findParent(curr_edge.e)){
             curr_edge.e.path.last = curr_edge.b;
-            curr_edge.selected = true;
+            //curr_edge.selected = true;
             count++;
         }
     }

@@ -213,7 +213,7 @@ function kruskal(src) {
     }
 
     let count = 0;
-    while(count < edge_list.length - 1){
+    while(edge_list.length !== 0){
         let curr_edge = minUnvisited(edge_list);
         if(findParent(curr_edge.b) !== findParent(curr_edge.e)){
             curr_edge.e.path.last = curr_edge.b;
@@ -221,4 +221,9 @@ function kruskal(src) {
             count++;
         }
     }
+
+    let temp = "";
+    for (let x = 0; x < Graph.length; x++) temp += `${x} ---> ${Graph.indexOf(Graph[x].path.last)} \n`;
+    console.log(temp);
+
 }

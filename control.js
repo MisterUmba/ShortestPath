@@ -2,6 +2,7 @@
 
 let EDGINGNODE = undefined;
 let GOLD = undefined;
+let ANIMATE = false;
 
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect(), // abs. size of element
@@ -174,7 +175,8 @@ document.addEventListener("dblclick", function (ev) {
                 prim(GOLD);
                 break;
             case "Kruskel's MST":
-                kruskel(GOLD);
+                kruskal(GOLD);
+                highlightTree()
                 break;
             default:
                 console.log("Something's Wrong. Getting option which shouldn't be there ");
@@ -183,6 +185,13 @@ document.addEventListener("dblclick", function (ev) {
     }
 })
 
+
+// Animation
+
+function toggleAnimmation(){
+    ANIMATE = document.getElementById("animationMode").checked;
+    console.log(ANIMATE);
+}
 
 setInterval(draw, 1000 / 60);
 
